@@ -163,9 +163,9 @@ public class MenuFruitore extends Menu{
 		 * 2. seleziona categoria della richiesta
 		 * 3. inserice ore (durata della prestazione d'opera desiderata)
 		 * 4. creo oggetto Proposta di tipo richiesta
-		 * 5. formulo oggetto Proposta di tipo offerta (uso fdc)
-		 * 6. propongo lo scambio con questi due oggetti
-		 * 7. se non accetta formulo nuova offerta
+		 * 5. seleziona quale prestazione offre in cambio
+		 * 6. formulo l'offerta
+		 * 7. propongo lo scambio con questi due oggetti
 		 * 8. se accettata salvo salvando fruitore
 		 * @return
 		 */
@@ -174,30 +174,25 @@ public class MenuFruitore extends Menu{
 		System.out.println("Le prestazioni a disposizione: " + foglie.toString()); //poi sistema grazie fai tipo ID : nome
 		int scelta = InputDati.leggiIntero("Seleziona la prestazione di interesse");
 		double ore = InputDati.leggiDouble("Inserisci il numero di ore di prestazione che ti interessano");
-		Proposta p = new Proposta(foglie.get(scelta), TipoProposta.RICHIESTA, ore);
-		p.setFruitoreAssociato(fruit);
+		Proposta richiesta = new Proposta(foglie.get(scelta), TipoProposta.RICHIESTA, ore);
+		richiesta.setFruitoreAssociato(fruit);
 		
+		int incambio = InputDati.leggiIntero("Quale prestazione offri in cambio?");
 		//Proposta offerta = trovaOfferta(foglie, richiesta.getQuantitaOre(), richiesta.getPrestazione().getId());
 		ArrayList<Double> fattori = logica.getFatConversione().prendiRiga(scelta); //prendendo tutti i fdc dalla tabella uscenti da id della prestazione richiesat
+	    int valore = (int) (fattori.get(incambio) * ore);
+		Proposta offerta = new Proposta(foglie.get(incambio), TipoProposta.OFFERTA, valore);
+		PropostaScambio scambio = new PropostaScambio(richiesta, offerta);
 		
-		for (int i = 1; i < fattori.size(); i++) {
-			if (fattori.get(i) == 1) { //CERCO fdc = 1 
-				Proposta offerta = new Proposta(foglie.get(i), TipoProposta.OFFERTA, ore);
-				PropostaScambio scambio = new PropostaScambio(p, offerta);
-				boolean sn = InputDati.yesOrNo("Vuoi accettare la seguente proposta:\n" + scambio.toString());
-				if(sn) {
-					scambio.setStato(StatoProposta.ACCETTATA);
-					logica.addScambio(scambio);
-					GestorePersistenza.salvaScambi(logica.getScambi());
-				} else
-					scambio.setStato(StatoProposta.RIFIUTATA);
-			} else {
-				//propongo ore offerte = ore richieste + fdc ????
-			}
-		}
-		
-		
+		boolean sn = InputDati.yesOrNo("Vuoi accettare la seguente proposta:\n" + scambio.toString());
+		if(sn) {
+			scambio.setStato(StatoProposta.ACCETTATA);
+			logica.addScambio(scambio);
+			GestorePersistenza.salvaScambi(logica.getScambi());
+		} else
+			scambio.setStato(StatoProposta.RIFIUTATA);
 	}
+		
 /*	private Proposta formulaProposta(ArrayList<CategoriaFoglia> foglie) {
 		System.out.println("Le prestazioni a disposizione: " + foglie.toString()); //poi sistema grazie fai tipo ID : nome
 		int scelta = InputDati.leggiIntero("Seleziona la prestazione di interesse");
