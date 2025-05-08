@@ -6,7 +6,7 @@ import menu.MenuPrincipale;
 
 /**
  * Classe Main del programma
- * @author Erjona Maxhaku 735766      Diego Pioli 736160      Irene Romano 736566
+ * @author Erjona Maxhaku 735766      Diego Pioli 736160      Irene Romano 736566 
  *
  */
 public class Avvio {
