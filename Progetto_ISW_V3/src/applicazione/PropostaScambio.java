@@ -1,10 +1,13 @@
 package applicazione;
 
+import utenti.Fruitore;
+
 public class PropostaScambio {
 	
 	private Proposta richiesta;
 	private Proposta offerta; 
 	private StatoProposta stato;
+	private Fruitore associato = null; //impostato solo quando la proposta viene accettata per essere salvata
 	
 	/**
 	 * Costruttore dell'oggetto costituito dalla proposta del richiedente e l'offerta che gli viene proposta.
@@ -26,6 +29,18 @@ public class PropostaScambio {
 		this.stato = stato;
 	}
 
+	public Fruitore getAssociato() {
+		return associato;
+	}
+	
+	/**
+	 * Metodo che associa il fruitore allo scambio di proposta accettato
+	 * @param associato
+	 */
+	public void setFruitoreAssociato(Fruitore associato) {
+		this.associato = associato;	
+	}
+	
 	@Override
 	public String toString() {
 		return "PropostaScambio \nrichiesta: " + richiesta.toString() + "\nofferta: " + offerta.toString();

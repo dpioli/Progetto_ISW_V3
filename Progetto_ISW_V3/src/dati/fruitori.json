@@ -1,0 +1,16 @@
+[
+  {
+    "username": "era",
+    "password": "letmein",
+    "mail": "era@gmail.com",
+    "comprensorio": {
+      "nome": "Brescia Sud",
+      "comuni": [
+        "Castel Mella",
+        "Flero",
+        "Bagnolo Mella",
+        "Capriano Del Colle"
+      ]
+    }
+  }
+]

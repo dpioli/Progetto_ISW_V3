@@ -1,0 +1,98 @@
+[
+  {
+    "catRadice": {
+      "nome": "gerarchiaesempio",
+      "campCaratt": {
+        "nomeCampo": "primo",
+        "valoriCampo": {
+          "v1": "v2",
+          "v3": "fine",
+          "v5": "lol"
+        }
+      },
+      "sottoCateg": [
+        {
+          "nome": "intermedia",
+          "campCaratt": {
+            "nomeCampo": "secondo",
+            "valoriCampo": {
+              "vi2": "",
+              "vi1": ""
+            }
+          },
+          "sottoCateg": [
+            {
+              "nome": "foglia1",
+              "sottoCateg": [],
+              "foglia": true
+            },
+            {
+              "nome": "foglia2",
+              "sottoCateg": [],
+              "foglia": true
+            }
+          ],
+          "dominio": 2,
+          "foglia": false
+        },
+        {
+          "nome": "intermedia2",
+          "campCaratt": {
+            "nomeCampo": "terzo",
+            "valoriCampo": {
+              "vii1": ""
+            }
+          },
+          "sottoCateg": [
+            {
+              "nome": "foglia3",
+              "sottoCateg": [],
+              "foglia": true
+            }
+          ],
+          "dominio": 1,
+          "foglia": false
+        },
+        {
+          "nome": "intermedia3",
+          "campCaratt": {
+            "nomeCampo": "quarto",
+            "valoriCampo": {
+              "viii1": "",
+              "viii2": ""
+            }
+          },
+          "sottoCateg": [
+            {
+              "nome": "foglia4",
+              "sottoCateg": [],
+              "foglia": true
+            },
+            {
+              "nome": "foglia5",
+              "sottoCateg": [],
+              "foglia": true
+            }
+          ],
+          "dominio": 2,
+          "foglia": false
+        }
+      ],
+      "dominio": 3,
+      "foglia": false
+    },
+    "proprietario": {
+      "username": "d",
+      "password": "p"
+    },
+    "comprensorio": {
+      "nome": "Brescia ovest",
+      "comuni": [
+        "Cellatica",
+        "Gussago",
+        "Rodengo Saiano",
+        "Castegnato"
+      ]
+    }
+  }
+]

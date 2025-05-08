@@ -170,27 +170,40 @@ public class MenuFruitore extends Menu{
 		 * @return
 		 */
 		ArrayList<CategoriaFoglia> foglie = logica.getCategorieFoglia();
+		stampaPrestazioni(foglie); //poi sistema grazie fai tipo ID : nome
 		
-		System.out.println("Le prestazioni a disposizione: " + foglie.toString()); //poi sistema grazie fai tipo ID : nome
-		int scelta = InputDati.leggiIntero("Seleziona la prestazione di interesse");
-		double ore = InputDati.leggiDouble("Inserisci il numero di ore di prestazione che ti interessano");
+		//RICHIESTA
+		int scelta = InputDati.leggiIntero("Seleziona la prestazione di interesse: ") - 1;
+		double ore = InputDati.leggiDouble("Inserisci il numero di ore di questa prestazione che ti interessano:");
 		Proposta richiesta = new Proposta(foglie.get(scelta), TipoProposta.RICHIESTA, ore);
-		richiesta.setFruitoreAssociato(fruit);
-		
-		int incambio = InputDati.leggiIntero("Quale prestazione offri in cambio?");
-		//Proposta offerta = trovaOfferta(foglie, richiesta.getQuantitaOre(), richiesta.getPrestazione().getId());
-		ArrayList<Double> fattori = logica.getFatConversione().prendiRiga(scelta); //prendendo tutti i fdc dalla tabella uscenti da id della prestazione richiesat
+
+		//OFFERTA
+		int incambio = InputDati.leggiIntero("Quale prestazione offri in cambio?") - 1;
+		ArrayList<Double> fattori = logica.getFatConversione().prendiRiga(scelta); //prendendo tutti i fdc dalla tabella uscenti da id della prestazione richiesta
 	    int valore = (int) (fattori.get(incambio) * ore);
 		Proposta offerta = new Proposta(foglie.get(incambio), TipoProposta.OFFERTA, valore);
-		PropostaScambio scambio = new PropostaScambio(richiesta, offerta);
 		
+		//SCAMBIO
+		PropostaScambio scambio = new PropostaScambio(richiesta, offerta);
 		boolean sn = InputDati.yesOrNo("Vuoi accettare la seguente proposta:\n" + scambio.toString());
 		if(sn) {
 			scambio.setStato(StatoProposta.ACCETTATA);
+			scambio.setFruitoreAssociato(fruit);
 			logica.addScambio(scambio);
 			GestorePersistenza.salvaScambi(logica.getScambi());
 		} else
 			scambio.setStato(StatoProposta.RIFIUTATA);
+	}
+	private void stampaPrestazioni(ArrayList<CategoriaFoglia> foglie) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("Prestazioni a disposizione >>\n");		
+		for(CategoriaFoglia f : foglie) {
+			sb.append(f.getId());
+			sb.append(": ");
+			sb.append(f.getNome());
+			sb.append("\n");
+		}
+		System.out.println(sb.toString());
 	}
 		
 /*	private Proposta formulaProposta(ArrayList<CategoriaFoglia> foglie) {

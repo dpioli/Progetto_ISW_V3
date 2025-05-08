@@ -4,7 +4,6 @@ import utenti.Fruitore;
 
 public class Proposta {
 	
-	private Fruitore associato = null; //impostato solo quando la proposta viene accettata per essere salvata
 	private CategoriaFoglia prestazione;
 	private TipoProposta tipo;
 	private double quantitaOre;
@@ -37,19 +36,6 @@ public class Proposta {
 		return prestazione;
 	}
 
-
-	public Fruitore getAssociato() {
-		return associato;
-	}
-	
-	/**
-	 * Metodo che associa il fruitore allo scambio di proposta accettato
-	 * @param associato
-	 */
-	public void setFruitoreAssociato(Fruitore associato) {
-		this.associato = associato;	
-	}
-	
 	@Override
 	public String toString() {
 		return "PropostaScambio [prestazione " + tipo + ": "+ prestazione.getNome() + ", ore: " + quantitaOre + "]";
