@@ -11,6 +11,7 @@ import applicazione.CategoriaFoglia;
 import applicazione.Comprensorio;
 import applicazione.FatConversione;
 import applicazione.Gerarchia;
+import applicazione.PropostaScambio;
 import utenti.Configuratore;
 import utenti.Fruitore;
 
@@ -22,12 +23,14 @@ import utenti.Fruitore;
  */
 public class GestorePersistenza {
 	
-	private static final String FILE_CONFIGURATORI = "../Progetto_ISW_V2/src/dati/configuratori.json";
-	private static final String FILE_GERARCHIE = "../Progetto_ISW_V2/src/dati/gerarchie.json";
-	private static final String FILE_COMPRENSORI = "../Progetto_ISW_V2/src/dati/comprensori.json";
-	private static final String FILE_FATT_CONVERSIONE = "../Progetto_ISW_V2/src/dati/fattConversione.json";
-	private static final String FILE_CATEGORIEFOGLIA = "../Progetto_ISW_V2/src/dati/categorieFoglia.json";
-	private static final String FILE_FRUITORI = "../Progetto_ISW_V2/src/dati/fruitori.json";
+	private static final String FILE_CONFIGURATORI = "../Progetto_ISW_V3/src/dati/configuratori.json";
+	private static final String FILE_GERARCHIE = "../Progetto_ISW_V3/src/dati/gerarchie.json";
+	private static final String FILE_COMPRENSORI = "../Progetto_ISW_V3/src/dati/comprensori.json";
+	private static final String FILE_FATT_CONVERSIONE = "../Progetto_ISW_V3/src/dati/fattConversione.json";
+	private static final String FILE_CATEGORIEFOGLIA = "../Progetto_ISW_V3/src/dati/categorieFoglia.json";
+	private static final String FILE_FRUITORI = "../Progetto_ISW_V3/src/dati/fruitori.json";
+	private static final String FILE_PROPOSTE = "../Progetto_ISW_V3/src/dati/proposteAperte.json";
+	
 	
 	/* PER la JAR
 	private static final String FILE_CONFIGURATORI = "dati/configuratori.json";
@@ -138,12 +141,28 @@ public class GestorePersistenza {
 		salva(fatConversione, FILE_FATT_CONVERSIONE);
 	}
 	
+	/**
+	 * Metodo per salvare le categorie foglia di tutte le gerarchie presenti nel sistema
+	 * @param categorieFoglia
+	 */
 	public static void salvaCategorieFoglia(ArrayList<CategoriaFoglia> categorieFoglia) {
 		salva(categorieFoglia, FILE_CATEGORIEFOGLIA);
 	}
 	
+	/**
+	 * Metodo per salvare i profili dei fruitori
+	 * @param fruitori
+	 */
 	public static void salvaFruitori(ArrayList<Fruitore> fruitori) {
 		salva(fruitori, FILE_FRUITORI);
+	}
+	
+	/**
+	 * Metodo per salvare le proposte di scambio che sono state accettate
+	 * @param scambi
+	 */
+	public static void salvaScambi(ArrayList<PropostaScambio> scambi) {
+		salva(scambi, FILE_PROPOSTE);
 	}
 	
 	/*
@@ -221,6 +240,10 @@ public class GestorePersistenza {
 		return categorieFoglia;
 	}
 	
+	/**
+	 * Metodo per caricare i fruitori
+	 * @return lista dei fruitori registrati
+	 */
 	public static ArrayList<Fruitore> caricaFruitori() {
 		Type listType = new TypeToken<ArrayList<Fruitore>>() {}.getType();
 		ArrayList<Fruitore> fruitori = carica(listType, FILE_FRUITORI);
@@ -228,6 +251,19 @@ public class GestorePersistenza {
 			return new ArrayList<Fruitore>();
 		}
 		return fruitori;
+	}
+	
+	/**
+	 * Metodo per caricare le proposte di scambio che sono state accettate
+	 * @return lista delle proposte accettate
+	 */
+	public static ArrayList<PropostaScambio> caricaScambi() {
+		Type listType = new TypeToken<ArrayList<PropostaScambio>>() {}.getType();
+		ArrayList<PropostaScambio> scambi = carica(listType, FILE_PROPOSTE);
+		if(scambi == null) {
+			return new ArrayList<PropostaScambio>();
+		}
+		return scambi;
 	}
 	
 	

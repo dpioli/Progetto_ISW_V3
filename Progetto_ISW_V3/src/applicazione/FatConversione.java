@@ -173,7 +173,16 @@ public class FatConversione {
 		//mi assicuro la diagonale sia nulla
 		fdc.get(cont).set(cont, 0.0); 
 	}
-
+	
+	/**
+	 * Metodo che mi restituisce la riga riferita a un particolare ID
+	 * @param i
+	 * @return
+	 */
+	public ArrayList<Double> prendiRiga(int id){
+		return fdc.get(id);
+	}
+	
 	/**
 	 * Metodo che stampa i fattori di conversione a terminale.
 	 */

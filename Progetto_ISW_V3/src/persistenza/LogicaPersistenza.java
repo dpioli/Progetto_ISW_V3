@@ -6,6 +6,7 @@ import applicazione.CategoriaFoglia;
 import applicazione.Comprensorio;
 import applicazione.FatConversione;
 import applicazione.Gerarchia;
+import applicazione.PropostaScambio;
 import utenti.Configuratore;
 import utenti.Fruitore;
 
@@ -22,6 +23,7 @@ public class LogicaPersistenza {
 	private ArrayList<CategoriaFoglia> categorieFoglia = new ArrayList<CategoriaFoglia>();
 	private FatConversione fatConversione;
 	private ArrayList<Fruitore> fruitori = new ArrayList<Fruitore>();
+	private ArrayList<PropostaScambio> scambi = new ArrayList<PropostaScambio>();
 	
 	public LogicaPersistenza() {
 		this.gerarchie = GestorePersistenza.caricaGerarchie();
@@ -30,6 +32,7 @@ public class LogicaPersistenza {
 		this.fatConversione = GestorePersistenza.caricaFatConversione();
 		this.categorieFoglia = GestorePersistenza.caricaCategorieFoglia();
 		this.fruitori = GestorePersistenza.caricaFruitori();
+		this.scambi = GestorePersistenza.caricaScambi();
 	}
 	
 	/*
@@ -135,6 +138,21 @@ public class LogicaPersistenza {
 	public void setFruitori(ArrayList<Fruitore> fruitori) {
 		this.fruitori = fruitori;
 	}
+	/**
+	 * Metodo per ottenere l'insieme delle proposte aperte (scambi tra fruitore e server)
+	 * @return scambi
+	 */
+	public ArrayList<PropostaScambio> getScambi() {
+		return scambi;
+	}
+	
+	/**
+	 * Medoto per modificare l'insieme delle proposte aperte (scambi tra fruitore e server)
+	 * @param scambi
+	 */
+	public void setScambi(ArrayList<PropostaScambio> scambi) {
+		this.scambi = scambi;
+	}
 
 	/*
 	 * 
@@ -163,6 +181,9 @@ public class LogicaPersistenza {
 	
 	public void addFruitore(Fruitore fruitore) {
 		fruitori.add(fruitore);
+	}
+	public void addScambio(PropostaScambio scambio) {
+		scambi.add(scambio);
 	}
 
 	public void addCategoriaFoglia(CategoriaFoglia nuovaCategFoglia) {

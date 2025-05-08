@@ -1,67 +1,34 @@
 package applicazione;
 
-import utenti.Fruitore;
-
 public class PropostaScambio {
 	
-	private Fruitore mittente;
-	private Fruitore destinatario;
-	private CategoriaFoglia categoriaOfferta;
-	private CategoriaFoglia categoriaRichiesta;
-	private double quantitaOfferta; 
-	private double quantitaRichiesta;
+	private Proposta richiesta;
+	private Proposta offerta; 
 	private StatoProposta stato;
 	
-	public PropostaScambio(Fruitore mittente, Fruitore destinatario, 
-			CategoriaFoglia categoriaOfferta, CategoriaFoglia categoriaRichiesta, 
-			double quantitaOfferta, double quantitaRichiesta) {
-		
-		this.mittente = mittente;
-		this.destinatario = destinatario;
-		this.categoriaOfferta = categoriaOfferta;
-		this.categoriaRichiesta = categoriaRichiesta;
-		this.quantitaOfferta = quantitaOfferta;
-		this.quantitaRichiesta = quantitaRichiesta;
-		this.stato = stato;
-	}
-
-	
-	//GETTERS
-	
-	public Fruitore getMittente() {
-		return mittente;
-	}
-
-	public Fruitore getDestinatario() {
-		return destinatario;
-	}
-
-	public CategoriaFoglia getCategoriaOfferta() {
-		return categoriaOfferta;
-	}
-
-	public CategoriaFoglia getCategoriaRichiesta() {
-		return categoriaRichiesta;
-	}
-
-	public double getQuantitaOfferta() {
-		return quantitaOfferta;
-	}
-
-	public double getQuantitaRichiesta() {
-		return quantitaRichiesta;
+	/**
+	 * Costruttore dell'oggetto costituito dalla proposta del richiedente e l'offerta che gli viene proposta.
+	 * Inizialmente lo stato è sempre impostato IN_ATTESA, finché il fruitore stesso la accetta o la rifiuta.
+	 * @param richiesta
+	 * @param offerta
+	 */
+	public PropostaScambio(Proposta richiesta, Proposta offerta) {
+		this.richiesta = richiesta;
+		this.offerta = offerta;
+		this.stato = StatoProposta.IN_ATTESA;
 	}
 
 	public StatoProposta getStato() {
 		return stato;
 	}
 
+	public void setStato(StatoProposta stato) {
+		this.stato = stato;
+	}
 
 	@Override
 	public String toString() {
-		return "PropostaScambio [mittente=" + mittente + ", destinatario=" + destinatario + ", categoriaOfferta="
-				+ categoriaOfferta + ", categoriaRichiesta=" + categoriaRichiesta + ", quantitaOfferta="
-				+ quantitaOfferta + ", quantitaRichiesta=" + quantitaRichiesta + ", stato=" + stato + "]";
+		return "PropostaScambio \nrichiesta: " + richiesta.toString() + "\nofferta: " + offerta.toString();
 	}
 
 }

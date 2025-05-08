@@ -55,6 +55,7 @@ public class MenuPrincipale{
 	 * Voci Menu Fruitore
 	 */
 	private static final int CASE_NAVIGA = 1;
+	private static final int CASE_RICHIEDI_PRESTAZIONI = 2;
 
 	/**
 	 * Costruttore della pagina iniziale del programma
@@ -184,6 +185,9 @@ public class MenuPrincipale{
 			switch(scelta) {
 			case CASE_NAVIGA:
 				menuFruit.naviga();
+				break;
+			case CASE_RICHIEDI_PRESTAZIONI:
+				menuFruit.richiediPrestazioni();
 				break;
 			default:
 				System.exit(CASE_USCITA);

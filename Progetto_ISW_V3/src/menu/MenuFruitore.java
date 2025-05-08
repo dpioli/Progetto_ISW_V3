@@ -4,7 +4,13 @@ import java.util.*;
 
 import applicazione.CampoCaratteristico;
 import applicazione.Categoria;
+import applicazione.CategoriaFoglia;
 import applicazione.Gerarchia;
+import applicazione.Proposta;
+import applicazione.PropostaScambio;
+import applicazione.StatoProposta;
+import applicazione.TipoProposta;
+import persistenza.GestorePersistenza;
 import persistenza.LogicaPersistenza;
 import utenti.Fruitore;
 import util.InputDati;
@@ -24,6 +30,7 @@ public class MenuFruitore extends Menu{
 	private static final String titolo = "\tMENU FRUITORE";
 	
 	private static final String NAVIGA = "Naviga tra le gerarchie";
+	private static final String RICHIEDI_PRESTAZIONI = "Richiedi prestazioni al server";
 	private static final String X = "\n******************************************";
 	private static final String MSG_INIZIALE = "Gerarchie presenti nel tuo comprensorio:";
 	private static final String MSG_ASSENZA_GERARCH = "Non ci sono gerarchie presenti per il tuo comprensorio.";
@@ -39,7 +46,7 @@ public class MenuFruitore extends Menu{
 	private static final String COLON = ": ";
 	private static final String MSG_VOCE_TORNA_INDIETRO = "0. Torna al menu";
 	
-	private static String[] vociFruit = {NAVIGA};
+	private static String[] vociFruit = {NAVIGA, RICHIEDI_PRESTAZIONI};
 	
 	/**
 	 * Construttore di MenuFruitore
@@ -148,5 +155,56 @@ public class MenuFruitore extends Menu{
 	    if (scelta == 0) return null;
 	    return sottocategorie.get(scelta - 1);
 	}
-
+	
+	public void richiediPrestazioni() {
+		/**
+		 * formulazione richiesta
+		 * 1. il fruitore visualizza le categorie foglia a disposizione
+		 * 2. seleziona categoria della richiesta
+		 * 3. inserice ore (durata della prestazione d'opera desiderata)
+		 * 4. creo oggetto Proposta di tipo richiesta
+		 * 5. formulo oggetto Proposta di tipo offerta (uso fdc)
+		 * 6. propongo lo scambio con questi due oggetti
+		 * 7. se non accetta formulo nuova offerta
+		 * 8. se accettata salvo salvando fruitore
+		 * @return
+		 */
+		ArrayList<CategoriaFoglia> foglie = logica.getCategorieFoglia();
+		
+		System.out.println("Le prestazioni a disposizione: " + foglie.toString()); //poi sistema grazie fai tipo ID : nome
+		int scelta = InputDati.leggiIntero("Seleziona la prestazione di interesse");
+		double ore = InputDati.leggiDouble("Inserisci il numero di ore di prestazione che ti interessano");
+		Proposta p = new Proposta(foglie.get(scelta), TipoProposta.RICHIESTA, ore);
+		p.setFruitoreAssociato(fruit);
+		
+		//Proposta offerta = trovaOfferta(foglie, richiesta.getQuantitaOre(), richiesta.getPrestazione().getId());
+		ArrayList<Double> fattori = logica.getFatConversione().prendiRiga(scelta); //prendendo tutti i fdc dalla tabella uscenti da id della prestazione richiesat
+		
+		for (int i = 1; i < fattori.size(); i++) {
+			if (fattori.get(i) == 1) { //CERCO fdc = 1 
+				Proposta offerta = new Proposta(foglie.get(i), TipoProposta.OFFERTA, ore);
+				PropostaScambio scambio = new PropostaScambio(p, offerta);
+				boolean sn = InputDati.yesOrNo("Vuoi accettare la seguente proposta:\n" + scambio.toString());
+				if(sn) {
+					scambio.setStato(StatoProposta.ACCETTATA);
+					logica.addScambio(scambio);
+					GestorePersistenza.salvaScambi(logica.getScambi());
+				} else
+					scambio.setStato(StatoProposta.RIFIUTATA);
+			} else {
+				//propongo ore offerte = ore richieste + fdc ????
+			}
+		}
+		
+		
+	}
+/*	private Proposta formulaProposta(ArrayList<CategoriaFoglia> foglie) {
+		System.out.println("Le prestazioni a disposizione: " + foglie.toString()); //poi sistema grazie fai tipo ID : nome
+		int scelta = InputDati.leggiIntero("Seleziona la prestazione di interesse");
+		double ore = InputDati.leggiDouble("Inserisci il numero di ore di prestazione che ti interessano");
+		Proposta p = new Proposta(foglie.get(scelta), TipoProposta.RICHIESTA, ore);
+		p.setAssociato(fruit);
+		return p;
+	}
+*/
 }
