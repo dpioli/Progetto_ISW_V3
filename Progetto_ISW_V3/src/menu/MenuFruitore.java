@@ -23,6 +23,7 @@ import util.Menu;
  */
 public class MenuFruitore extends Menu{
 	
+	private static final String MSG_CHECK_COMPRENSORIO = "Non ci sono Gerarchie appartenenti al tuo comprensorio geografico.";
 	private static final String MSG_ANNULLATO_SCAMBIO = "Hai annullato la proposta di scambio...";
 	private Fruitore fruit;
 	private LogicaPersistenza logica;
@@ -172,7 +173,14 @@ public class MenuFruitore extends Menu{
 	 * 8. se confermato salvo lo scambio (in attesa), salvando anche il fruitore
 	 */
 	public void richiediPrestazioni() {
-		ArrayList<CategoriaFoglia> foglie = logica.getCategorieFoglia();
+		
+		ArrayList<CategoriaFoglia> foglie = recuperaFoglieDisponibili();
+		
+		if(foglie.isEmpty()) {
+			System.out.println(MSG_CHECK_COMPRENSORIO);
+			return;
+		}
+	
 		stampaPrestazioni(foglie); 
 		
 		//RICHIESTA
@@ -198,6 +206,24 @@ public class MenuFruitore extends Menu{
 			System.out.println(MSG_ANNULLATO_SCAMBIO +  MSG_MENU_PRINCIPALE );
 			return;
 		}
+	}
+	
+	/**
+	 * Metodo che elimina dalle foglie salvate quelle non disponibili al fruitore
+	 * in quanto non appartenenti allo stesso comprensorio geografico.
+	 * @return foglie a disposizione del fruitore
+	 */
+	private ArrayList<CategoriaFoglia> recuperaFoglieDisponibili() {
+		ArrayList<CategoriaFoglia> foglie = logica.getCategorieFoglia();
+		
+		for(Gerarchia g :logica.getGerarchie()) {
+			if(! g.getComprensorio().equals(fruit.getComprensorio()) ) {
+				for(Categoria c : g.getCatRadice().getSottoCateg())
+					if(c.isFoglia())
+						foglie.remove(c);
+			}
+		}
+		return foglie;
 	}
 	
 	/**
