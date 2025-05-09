@@ -23,7 +23,7 @@ import util.Menu;
  */
 public class MenuFruitore extends Menu{
 	
-	private static final String MSG_CHECK_COMPRENSORIO = "Non ci sono Gerarchie appartenenti al tuo comprensorio geografico.";
+	private static final String MSG_CHECK_COMPRENSORIO = "\nNon ci sono Gerarchie appartenenti al tuo comprensorio geografico.\n";
 	private static final String MSG_ANNULLATO_SCAMBIO = "Hai annullato la proposta di scambio...";
 	private Fruitore fruit;
 	private LogicaPersistenza logica;
@@ -51,7 +51,7 @@ public class MenuFruitore extends Menu{
 	private static final String MSG_INS_ORE = "Inserisci il numero di ore di questa prestazione che ti interessano:";
 	private static final String MSG_SEL_OFFERTA = "Quale prestazione offri in cambio?";
 	private static final String MSG_CONFERMA = "Confermi la seguente proposta di scambio?\n";
-	private static final String MSG_Y_N = "\n(S) per confermare, (N) altrimenti ";
+	private static final String MSG_Y_N = "\nVuoi confermare ";
 	
 	private static String[] vociFruit = {NAVIGA, RICHIEDI_PRESTAZIONI};
 	
@@ -213,7 +213,7 @@ public class MenuFruitore extends Menu{
 	 * in quanto non appartenenti allo stesso comprensorio geografico.
 	 * @return foglie a disposizione del fruitore
 	 */
-	private ArrayList<CategoriaFoglia> recuperaFoglieDisponibili() {
+/*	private ArrayList<CategoriaFoglia> recuperaFoglieDisponibili() {
 		ArrayList<CategoriaFoglia> foglie = logica.getCategorieFoglia();
 		
 		for(Gerarchia g :logica.getGerarchie()) {
@@ -224,7 +224,37 @@ public class MenuFruitore extends Menu{
 			}
 		}
 		return foglie;
+	}*/
+	
+	
+	
+	
+	//PROVA IRE
+	
+	
+	private ArrayList<CategoriaFoglia> recuperaFoglieDisponibili() {
+	    ArrayList<CategoriaFoglia> disponibili = new ArrayList<>();
+	    
+	    for (Gerarchia g : logica.getGerarchie()) {
+	        if (g.getNomeComprensorio().equals(fruit.getNomeComprensorio())) {
+	            raccoltaFoglie(g.getCatRadice(), disponibili);
+	        }
+	    }
+
+	    return disponibili;
 	}
+
+	private void raccoltaFoglie(Categoria cat, ArrayList<CategoriaFoglia> disponibili) {
+		 if (cat.isFoglia() && cat instanceof CategoriaFoglia) {
+		        disponibili.add((CategoriaFoglia) cat);
+	    } else {
+	        for (Categoria sotto : cat.getSottoCateg()) {
+	            raccoltaFoglie(sotto, disponibili);
+	        }
+	    }
+	}
+	
+	
 	
 	/**
 	 * Metodo di stampa delle prestazioni disponibili

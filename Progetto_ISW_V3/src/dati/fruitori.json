@@ -26,5 +26,17 @@
         "Capriano Del Colle"
       ]
     }
+  },
+  {
+    "username": "ren",
+    "password": "p",
+    "mail": "ire@gmail.com",
+    "comprensorio": {
+      "nome": "Brescia Ovest",
+      "comuni": [
+        "Rodengo",
+        "Coccaglio"
+      ]
+    }
   }
 ]

@@ -86,12 +86,12 @@
       "password": "p"
     },
     "comprensorio": {
-      "nome": "Brescia ovest",
+      "nome": "Brescia Sud",
       "comuni": [
-        "Cellatica",
-        "Gussago",
-        "Rodengo Saiano",
-        "Castegnato"
+          "Castel Mella",
+          "Flero",
+          "Bagnolo Mella",
+          "Capriano Del Colle"
       ]
     }
   }

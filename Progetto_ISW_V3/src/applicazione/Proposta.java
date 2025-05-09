@@ -42,7 +42,7 @@ public class Proposta {
 
 	@Override
 	public String toString() {
-		return "PropostaScambio [prestazione " + tipo + ": "+ prestazione.getNome() + ", ore: " + quantitaOre + "]";
+		return " [prestazione " + tipo.name().toLowerCase() + ": "+ prestazione.getNome() + ", ore: " + quantitaOre + "]";
 	}
 
 }

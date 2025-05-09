@@ -20,7 +20,6 @@
       "tipo": "OFFERTA",
       "quantitaOre": 20.0
     },
-    "stato": "ACCETTATA",
     "associato": {
       "username": "era",
       "password": "letmein",
@@ -57,7 +56,6 @@
       "tipo": "OFFERTA",
       "quantitaOre": 30.0
     },
-    "stato": "ACCETTATA",
     "associato": {
       "username": "diego",
       "password": "pioli",
@@ -69,6 +67,41 @@
           "Flero",
           "Bagnolo Mella",
           "Capriano Del Colle"
+        ]
+      }
+    }
+  },
+  {
+    "richiesta": {
+      "prestazione": {
+        "id": 3,
+        "nome": "foglia3",
+        "sottoCateg": [],
+        "foglia": true
+      },
+      "tipo": "RICHIESTA",
+      "quantitaOre": 6.0
+    },
+    "offerta": {
+      "prestazione": {
+        "id": 2,
+        "nome": "foglia2",
+        "sottoCateg": [],
+        "foglia": true
+      },
+      "tipo": "OFFERTA",
+      "quantitaOre": 9.0
+    },
+    "stato": "IN_ATTESA",
+    "associato": {
+      "username": "ren",
+      "password": "p",
+      "mail": "ire@gmail.com",
+      "comprensorio": {
+        "nome": "Brescia Ovest",
+        "comuni": [
+          "Rodengo",
+          "Coccaglio"
         ]
       }
     }
