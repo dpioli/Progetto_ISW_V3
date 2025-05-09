@@ -43,7 +43,7 @@ public class PropostaScambio {
 	
 	@Override
 	public String toString() {
-		return "PropostaScambio \nrichiesta: " + richiesta.toString() + "\nofferta: " + offerta.toString();
+		return "\nPropostaScambio \n> Richiesta: " + richiesta.toString() + "\n> Offerta: " + offerta.toString();
 	}
 
 }

@@ -30,7 +30,7 @@ public class MenuFruitore extends Menu{
 	private static final String titolo = "\tMENU FRUITORE";
 	
 	private static final String NAVIGA = "Naviga tra le gerarchie";
-	private static final String RICHIEDI_PRESTAZIONI = "Richiedi prestazioni al server";
+	private static final String RICHIEDI_PRESTAZIONI = "Richiedi prestazioni al sistema";
 	private static final String X = "\n******************************************";
 	private static final String MSG_INIZIALE = "Gerarchie presenti nel tuo comprensorio:";
 	private static final String MSG_ASSENZA_GERARCH = "Non ci sono gerarchie presenti per il tuo comprensorio.";
@@ -156,8 +156,7 @@ public class MenuFruitore extends Menu{
 	    return sottocategorie.get(scelta - 1);
 	}
 	
-	public void richiediPrestazioni() {
-		/**
+	/**
 		 * formulazione richiesta
 		 * 1. il fruitore visualizza le categorie foglia a disposizione
 		 * 2. seleziona categoria della richiesta
@@ -169,6 +168,7 @@ public class MenuFruitore extends Menu{
 		 * 8. se accettata salvo salvando fruitore
 		 * @return
 		 */
+	public void richiediPrestazioni() {
 		ArrayList<CategoriaFoglia> foglie = logica.getCategorieFoglia();
 		stampaPrestazioni(foglie); //poi sistema grazie fai tipo ID : nome
 		
@@ -179,13 +179,14 @@ public class MenuFruitore extends Menu{
 
 		//OFFERTA
 		int incambio = InputDati.leggiIntero("Quale prestazione offri in cambio?") - 1;
-		ArrayList<Double> fattori = logica.getFatConversione().prendiRiga(scelta); //prendendo tutti i fdc dalla tabella uscenti da id della prestazione richiesta
+		ArrayList<Double> fattori = logica.getFatConversione().prendiRiga(scelta); 
+		//prendendo tutti i fdc dalla tabella uscenti da id della prestazione richiesta
 	    int valore = (int) (fattori.get(incambio) * ore);
 		Proposta offerta = new Proposta(foglie.get(incambio), TipoProposta.OFFERTA, valore);
 		
 		//SCAMBIO
 		PropostaScambio scambio = new PropostaScambio(richiesta, offerta);
-		boolean sn = InputDati.yesOrNo("Vuoi accettare la seguente proposta:\n" + scambio.toString());
+		boolean sn = InputDati.yesOrNo("Vuoi accettare la seguente proposta:\n" + scambio.toString() + "\n(S) per accettare, (N) per rifiutare ");
 		if(sn) {
 			scambio.setStato(StatoProposta.ACCETTATA);
 			scambio.setFruitoreAssociato(fruit);
@@ -194,6 +195,7 @@ public class MenuFruitore extends Menu{
 		} else
 			scambio.setStato(StatoProposta.RIFIUTATA);
 	}
+	
 	private void stampaPrestazioni(ArrayList<CategoriaFoglia> foglie) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Prestazioni a disposizione >>\n");		
