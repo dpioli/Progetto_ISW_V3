@@ -8,7 +8,6 @@ import applicazione.CategoriaFoglia;
 import applicazione.Gerarchia;
 import applicazione.Proposta;
 import applicazione.PropostaScambio;
-import applicazione.StatoProposta;
 import applicazione.TipoProposta;
 import persistenza.GestorePersistenza;
 import persistenza.LogicaPersistenza;
@@ -24,6 +23,7 @@ import util.Menu;
  */
 public class MenuFruitore extends Menu{
 	
+	private static final String MSG_ANNULLATO_SCAMBIO = "Hai annullato la proposta di scambio...";
 	private Fruitore fruit;
 	private LogicaPersistenza logica;
 	
@@ -45,6 +45,12 @@ public class MenuFruitore extends Menu{
 	private static final String DOT = ". ";
 	private static final String COLON = ": ";
 	private static final String MSG_VOCE_TORNA_INDIETRO = "0. Torna al menu";
+	//versione 3
+	private static final String MSG_SEL_PRESTAZIONE = "Seleziona la prestazione di interesse: ";
+	private static final String MSG_INS_ORE = "Inserisci il numero di ore di questa prestazione che ti interessano:";
+	private static final String MSG_SEL_OFFERTA = "Quale prestazione offri in cambio?";
+	private static final String MSG_CONFERMA = "Confermi la seguente proposta di scambio?\n";
+	private static final String MSG_Y_N = "\n(S) per confermare, (N) altrimenti ";
 	
 	private static String[] vociFruit = {NAVIGA, RICHIEDI_PRESTAZIONI};
 	
@@ -80,9 +86,7 @@ public class MenuFruitore extends Menu{
 			gScelta = selezionaGerarchia(gerarch);
             navigaCategoria(gScelta.getCatRadice(), new HashMap<>()); 
             // Inizializziamo la mappa dei valori di campo per la navigazione
-		}
-		
-		
+		}	
 	}
 	
 	/**
@@ -157,28 +161,27 @@ public class MenuFruitore extends Menu{
 	}
 	
 	/**
-		 * formulazione richiesta
-		 * 1. il fruitore visualizza le categorie foglia a disposizione
-		 * 2. seleziona categoria della richiesta
-		 * 3. inserice ore (durata della prestazione d'opera desiderata)
-		 * 4. creo oggetto Proposta di tipo richiesta
-		 * 5. seleziona quale prestazione offre in cambio
-		 * 6. formulo l'offerta
-		 * 7. propongo lo scambio con questi due oggetti
-		 * 8. se accettata salvo salvando fruitore
-		 * @return
-		 */
+	 * Metodo per la formulazione di una richiesta di scambio
+	 * 1. il fruitore visualizza le categorie foglia a disposizione
+	 * 2. seleziona categoria della richiesta
+	 * 3. inserice ore (durata della prestazione d'opera desiderata)
+	 * 4. creo oggetto Proposta di tipo richiesta
+	 * 5. seleziona quale prestazione offre in cambio
+	 * 6. formulo l'offerta
+	 * 7. chiedo conferma degli oggetti
+	 * 8. se confermato salvo lo scambio (in attesa), salvando anche il fruitore
+	 */
 	public void richiediPrestazioni() {
 		ArrayList<CategoriaFoglia> foglie = logica.getCategorieFoglia();
-		stampaPrestazioni(foglie); //poi sistema grazie fai tipo ID : nome
+		stampaPrestazioni(foglie); 
 		
 		//RICHIESTA
-		int scelta = InputDati.leggiIntero("Seleziona la prestazione di interesse: ") - 1;
-		double ore = InputDati.leggiDouble("Inserisci il numero di ore di questa prestazione che ti interessano:");
+		int scelta = InputDati.leggiIntero(MSG_SEL_PRESTAZIONE) - 1;
+		double ore = InputDati.leggiDouble(MSG_INS_ORE);
 		Proposta richiesta = new Proposta(foglie.get(scelta), TipoProposta.RICHIESTA, ore);
 
 		//OFFERTA
-		int incambio = InputDati.leggiIntero("Quale prestazione offri in cambio?") - 1;
+		int incambio = InputDati.leggiIntero(MSG_SEL_OFFERTA) - 1;
 		ArrayList<Double> fattori = logica.getFatConversione().prendiRiga(scelta); 
 		//prendendo tutti i fdc dalla tabella uscenti da id della prestazione richiesta
 	    int valore = (int) (fattori.get(incambio) * ore);
@@ -186,16 +189,21 @@ public class MenuFruitore extends Menu{
 		
 		//SCAMBIO
 		PropostaScambio scambio = new PropostaScambio(richiesta, offerta);
-		boolean sn = InputDati.yesOrNo("Vuoi accettare la seguente proposta:\n" + scambio.toString() + "\n(S) per accettare, (N) per rifiutare ");
-		if(sn) {
-			scambio.setStato(StatoProposta.ACCETTATA);
+		boolean sn = InputDati.yesOrNo(MSG_CONFERMA + scambio.toString() + MSG_Y_N);
+		if(sn) { //aggiunto alle proposte aperte
 			scambio.setFruitoreAssociato(fruit);
 			logica.addScambio(scambio);
 			GestorePersistenza.salvaScambi(logica.getScambi());
-		} else
-			scambio.setStato(StatoProposta.RIFIUTATA);
+		} else {
+			System.out.println(MSG_ANNULLATO_SCAMBIO +  MSG_MENU_PRINCIPALE );
+			return;
+		}
 	}
 	
+	/**
+	 * Metodo di stampa delle prestazioni disponibili
+	 * @param foglie
+	 */
 	private void stampaPrestazioni(ArrayList<CategoriaFoglia> foglie) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Prestazioni a disposizione >>\n");		
@@ -207,14 +215,5 @@ public class MenuFruitore extends Menu{
 		}
 		System.out.println(sb.toString());
 	}
-		
-/*	private Proposta formulaProposta(ArrayList<CategoriaFoglia> foglie) {
-		System.out.println("Le prestazioni a disposizione: " + foglie.toString()); //poi sistema grazie fai tipo ID : nome
-		int scelta = InputDati.leggiIntero("Seleziona la prestazione di interesse");
-		double ore = InputDati.leggiDouble("Inserisci il numero di ore di prestazione che ti interessano");
-		Proposta p = new Proposta(foglie.get(scelta), TipoProposta.RICHIESTA, ore);
-		p.setAssociato(fruit);
-		return p;
-	}
-*/
+
 }

@@ -1,7 +1,11 @@
 package applicazione;
 
-import utenti.Fruitore;
-
+/**
+ * Classe che modellizza l'oggetto Proposta.
+ * E' caratterizzato da un prestazione che può essere richiesta o offerta e per una certa quantità di ore.
+ * 
+ * @author Irene Romano 736566      Erjona Maxhaku 735766
+ */
 public class Proposta {
 	
 	private CategoriaFoglia prestazione;
