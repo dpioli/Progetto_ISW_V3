@@ -29,5 +29,4 @@ public class CategoriaFoglia extends Categoria{
 		this.id = id;
 	}
 	
-	
 }

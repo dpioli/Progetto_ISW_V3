@@ -233,7 +233,7 @@ public class MenuFruitore extends Menu{
 	private ArrayList<CategoriaFoglia>  raccoltaFoglie(Categoria cat) {
 		ArrayList<CategoriaFoglia> cf = new ArrayList<>();
 		if (cat instanceof CategoriaFoglia) {
-		        cf.add((CategoriaFoglia) cat);
+	        cf.add((CategoriaFoglia) cat);
 	    } else if(cat.getSottoCateg() != null) {
 	        for (Categoria sotto : cat.getSottoCateg()) {
 	            cf.addAll(raccoltaFoglie(sotto));
