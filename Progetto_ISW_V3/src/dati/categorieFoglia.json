@@ -28,5 +28,17 @@
     "nome": "foglia5",
     "sottoCateg": [],
     "foglia": true
+  },
+  {
+    "id": 6,
+    "nome": "foglietta1",
+    "sottoCateg": [],
+    "foglia": true
+  },
+  {
+    "id": 7,
+    "nome": "foglietta2",
+    "sottoCateg": [],
+    "foglia": true
   }
 ]
