@@ -218,13 +218,13 @@ public class MenuFruitore extends Menu{
 	    
 	    for (Gerarchia g : logica.getGerarchie()) {
 	        if (g.getNomeComprensorio().equals(fruit.getNomeComprensorio())) {
-	            disponibili = raccoltaFoglie(g.getCatRadice());
+	            disponibili.addAll(raccoltaFoglie(g.getCatRadice()));
 	        }
 	    }
 
 	    return disponibili;
 	}
-
+	
 	/**
 	 * Metodo che contolla le sottocategorie di una categoria, inserendo quelle foglia in un array.
 	 * @param categoria da cui ricavare le sottocategorie
@@ -232,14 +232,35 @@ public class MenuFruitore extends Menu{
 	 */
 	private ArrayList<CategoriaFoglia>  raccoltaFoglie(Categoria cat) {
 		ArrayList<CategoriaFoglia> cf = new ArrayList<>();
-		if (cat instanceof CategoriaFoglia) {
-	        cf.add((CategoriaFoglia) cat);
+
+		if(cat.isFoglia()) {
+			CategoriaFoglia foglia = getFogliaDaNome(cat);
+			if (foglia != null) {
+			    cf.add(foglia);
+			}
 	    } else if(cat.getSottoCateg() != null) {
 	        for (Categoria sotto : cat.getSottoCateg()) {
 	            cf.addAll(raccoltaFoglie(sotto));
 	        }
 	    }
 		return cf;
+	}
+	
+	/**
+	 * Metodo che restituisce una foglia presente nel file categorieFoglia
+	 * @param categoria che verifico sia di tipo foglia
+	 * @return foglia 
+	 */
+	private CategoriaFoglia getFogliaDaNome(Categoria cat) {
+	    String nomeCategoria = cat.getNome().trim().toLowerCase();
+
+	    for (CategoriaFoglia f : logica.getCategorieFoglia()) {
+	        if (f.getNome().trim().toLowerCase().equals(nomeCategoria)) {
+	            return f;
+	        }
+	    }
+
+	    return null;
 	}
 	
 	/**

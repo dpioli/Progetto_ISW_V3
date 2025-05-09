@@ -88,10 +88,64 @@
     "comprensorio": {
       "nome": "Brescia Sud",
       "comuni": [
-          "Castel Mella",
-          "Flero",
-          "Bagnolo Mella",
-          "Capriano Del Colle"
+        "Castel Mella",
+        "Flero",
+        "Bagnolo Mella",
+        "Capriano Del Colle"
+      ]
+    }
+  },
+  {
+    "catRadice": {
+      "nome": "nuovagerarchia",
+      "campCaratt": {
+        "nomeCampo": "primo",
+        "valoriCampo": {
+          "v1": "",
+          "v2": ""
+        }
+      },
+      "sottoCateg": [
+        {
+          "nome": "intermedianuova",
+          "campCaratt": {
+            "nomeCampo": "secondo",
+            "valoriCampo": {
+              "v1": ""
+            }
+          },
+          "sottoCateg": [
+            {
+              "id": 6,
+              "nome": "foglietta1",
+              "sottoCateg": [],
+              "foglia": true
+            }
+          ],
+          "dominio": 1,
+          "foglia": false
+        },
+        {
+          "id": 7,
+          "nome": "foglietta2",
+          "sottoCateg": [],
+          "foglia": true
+        }
+      ],
+      "dominio": 2,
+      "foglia": false
+    },
+    "proprietario": {
+      "username": "IreneR",
+      "password": "ProgettoISW"
+    },
+    "comprensorio": {
+      "nome": "Brescia Sud",
+      "comuni": [
+        "Castel Mella",
+        "Flero",
+        "Bagnolo Mella",
+        "Capriano Del Colle"
       ]
     }
   }
