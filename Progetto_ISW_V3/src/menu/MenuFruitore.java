@@ -23,8 +23,6 @@ import util.Menu;
  */
 public class MenuFruitore extends Menu{
 	
-	private static final String MSG_CHECK_COMPRENSORIO = "\nNon ci sono Gerarchie appartenenti al tuo comprensorio geografico.\n";
-	private static final String MSG_ANNULLATO_SCAMBIO = "Hai annullato la proposta di scambio...";
 	private Fruitore fruit;
 	private LogicaPersistenza logica;
 	
@@ -52,6 +50,8 @@ public class MenuFruitore extends Menu{
 	private static final String MSG_SEL_OFFERTA = "Quale prestazione offri in cambio?";
 	private static final String MSG_CONFERMA = "Confermi la seguente proposta di scambio?\n";
 	private static final String MSG_Y_N = "\nVuoi confermare ";
+	private static final String MSG_CHECK_COMPRENSORIO = "\nNon ci sono Gerarchie appartenenti al tuo comprensorio geografico.\n";
+	private static final String MSG_ANNULLATO_SCAMBIO = "Hai annullato la proposta di scambio...";
 	
 	private static String[] vociFruit = {NAVIGA, RICHIEDI_PRESTAZIONI};
 	
@@ -209,52 +209,38 @@ public class MenuFruitore extends Menu{
 	}
 	
 	/**
-	 * Metodo che elimina dalle foglie salvate quelle non disponibili al fruitore
-	 * in quanto non appartenenti allo stesso comprensorio geografico.
-	 * @return foglie a disposizione del fruitore
+	 * Metodo che recupera le foglie disponibili nel comprensorio geografico del fruitore,
+	 *  partendo dalle gerarchie salvate in LogicaPersistenza.
+	 * @return array delle foglie a disposizione del fruitore
 	 */
-/*	private ArrayList<CategoriaFoglia> recuperaFoglieDisponibili() {
-		ArrayList<CategoriaFoglia> foglie = logica.getCategorieFoglia();
-		
-		for(Gerarchia g :logica.getGerarchie()) {
-			if(! g.getComprensorio().equals(fruit.getComprensorio()) ) {
-				for(Categoria c : g.getCatRadice().getSottoCateg())
-					if(c.isFoglia())
-						foglie.remove(c);
-			}
-		}
-		return foglie;
-	}*/
-	
-	
-	
-	
-	//PROVA IRE
-	
-	
 	private ArrayList<CategoriaFoglia> recuperaFoglieDisponibili() {
 	    ArrayList<CategoriaFoglia> disponibili = new ArrayList<>();
 	    
 	    for (Gerarchia g : logica.getGerarchie()) {
 	        if (g.getNomeComprensorio().equals(fruit.getNomeComprensorio())) {
-	            raccoltaFoglie(g.getCatRadice(), disponibili);
+	            disponibili = raccoltaFoglie(g.getCatRadice());
 	        }
 	    }
 
 	    return disponibili;
 	}
 
-	private void raccoltaFoglie(Categoria cat, ArrayList<CategoriaFoglia> disponibili) {
-		 if (cat.isFoglia() && cat instanceof CategoriaFoglia) {
-		        disponibili.add((CategoriaFoglia) cat);
-	    } else {
+	/**
+	 * Metodo che contolla le sottocategorie di una categoria, inserendo quelle foglia in un array.
+	 * @param categoria da cui ricavare le sottocategorie
+	 * @return array di foglie
+	 */
+	private ArrayList<CategoriaFoglia>  raccoltaFoglie(Categoria cat) {
+		ArrayList<CategoriaFoglia> cf = new ArrayList<>();
+		if (cat instanceof CategoriaFoglia) {
+		        cf.add((CategoriaFoglia) cat);
+	    } else if(cat.getSottoCateg() != null) {
 	        for (Categoria sotto : cat.getSottoCateg()) {
-	            raccoltaFoglie(sotto, disponibili);
+	            cf.addAll(raccoltaFoglie(sotto));
 	        }
 	    }
+		return cf;
 	}
-	
-	
 	
 	/**
 	 * Metodo di stampa delle prestazioni disponibili
