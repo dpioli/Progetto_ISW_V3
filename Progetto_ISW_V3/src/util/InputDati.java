@@ -107,6 +107,28 @@ public class InputDati {
 
 		return valoreLetto;
 	}
+	/**
+	 * Metodo richiede all'utente un valore intero tenendo conto di condizioni limite di minimo e di massimo.
+	 * Continua a richiedere il valore finché esso non è valido.
+	 * @param messaggio visualizzato dall'utente
+	 * @param minimo
+	 * @param massimo
+	 * @return valore letto
+	 */
+	public static int leggiInteroConMINeMAX(String messaggio, int minimo, int massimo) {
+		boolean finito = false;
+		int valoreLetto = 0;
+		do {
+			valoreLetto = leggiIntero(messaggio);
+			if (valoreLetto < minimo || valoreLetto > massimo) {
+				System.out.println(ERRORE_MINIMO + minimo);
+				System.out.println( ERRORE_MASSIMO + massimo);
+			}
+			else finito = true;
+		} while (!finito);
+		
+		return valoreLetto;
+	}
 
 	public static int leggiIntero(String messaggio, int minimo, int massimo) {
 		boolean finito = false;

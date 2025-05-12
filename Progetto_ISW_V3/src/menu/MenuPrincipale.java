@@ -189,6 +189,8 @@ public class MenuPrincipale{
 			case CASE_RICHIEDI_PRESTAZIONI:
 				menuFruit.richiediPrestazioni();
 				break;
+			case CASE_P_AUTENTICAZIONE:
+				break;
 			default:
 				System.exit(CASE_USCITA);
 			}

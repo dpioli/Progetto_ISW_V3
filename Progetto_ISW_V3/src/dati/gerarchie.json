@@ -116,7 +116,6 @@
           },
           "sottoCateg": [
             {
-              "id": 6,
               "nome": "foglietta1",
               "sottoCateg": [],
               "foglia": true
@@ -126,7 +125,6 @@
           "foglia": false
         },
         {
-          "id": 7,
           "nome": "foglietta2",
           "sottoCateg": [],
           "foglia": true
@@ -146,6 +144,72 @@
         "Flero",
         "Bagnolo Mella",
         "Capriano Del Colle"
+      ]
+    }
+  },
+  {
+    "catRadice": {
+      "nome": "gerarchiadiversa",
+      "campCaratt": {
+        "nomeCampo": "campowhateva",
+        "valoriCampo": {
+          "ramouno": "",
+          "ramo2": "",
+          "ramo3": ""
+        }
+      },
+      "sottoCateg": [
+        {
+          "nome": "intermediaprima",
+          "campCaratt": {
+            "nomeCampo": "cc2",
+            "valoriCampo": {
+              "fogliaovest2": "",
+              "fogliaovest1": ""
+            }
+          },
+          "sottoCateg": [
+            {
+              "id": 8,
+              "nome": "fogliaovestramo2",
+              "sottoCateg": [],
+              "foglia": true
+            },
+            {
+              "id": 9,
+              "nome": "fogliaovestramo3",
+              "sottoCateg": [],
+              "foglia": true
+            }
+          ],
+          "dominio": 2,
+          "foglia": false
+        },
+        {
+          "id": 10,
+          "nome": "nonsoquantealtrefogliehomesso",
+          "sottoCateg": [],
+          "foglia": true
+        },
+        {
+          "id": 11,
+          "nome": "fidekdinuovo",
+          "sottoCateg": [],
+          "foglia": true
+        }
+      ],
+      "dominio": 3,
+      "foglia": false
+    },
+    "proprietario": {
+      "username": "ErjonaM",
+      "password": "ProgettoISW"
+    },
+    "comprensorio": {
+      "nome": "Brescia Ovest",
+      "comuni": [
+        "Rodengo",
+        "Coccaglio"
       ]
     }
   }

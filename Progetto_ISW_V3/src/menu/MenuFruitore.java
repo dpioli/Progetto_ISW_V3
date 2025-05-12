@@ -30,6 +30,7 @@ public class MenuFruitore extends Menu{
 	
 	private static final String NAVIGA = "Naviga tra le gerarchie";
 	private static final String RICHIEDI_PRESTAZIONI = "Richiedi prestazioni al sistema";
+	private final static String MSG_P_PRECEDENTE = "Ritorna alla pagina di autenticazione";
 	private static final String X = "\n******************************************";
 	private static final String MSG_INIZIALE = "Gerarchie presenti nel tuo comprensorio:";
 	private static final String MSG_ASSENZA_GERARCH = "Non ci sono gerarchie presenti per il tuo comprensorio.";
@@ -53,7 +54,7 @@ public class MenuFruitore extends Menu{
 	private static final String MSG_CHECK_COMPRENSORIO = "\nNon ci sono Gerarchie appartenenti al tuo comprensorio geografico.\n";
 	private static final String MSG_ANNULLATO_SCAMBIO = "Hai annullato la proposta di scambio...";
 	
-	private static String[] vociFruit = {NAVIGA, RICHIEDI_PRESTAZIONI};
+	private static String[] vociFruit = {NAVIGA, RICHIEDI_PRESTAZIONI, MSG_P_PRECEDENTE};
 	
 	/**
 	 * Construttore di MenuFruitore
@@ -184,12 +185,12 @@ public class MenuFruitore extends Menu{
 		stampaPrestazioni(foglie); 
 		
 		//RICHIESTA
-		int scelta = InputDati.leggiIntero(MSG_SEL_PRESTAZIONE) - 1;
-		double ore = InputDati.leggiDouble(MSG_INS_ORE);
+		int scelta = InputDati.leggiInteroConMINeMAX(MSG_SEL_PRESTAZIONE, 0, foglie.size()- 1);
+		double ore = InputDati.leggiDoubleConMinimo(MSG_INS_ORE, 0);
 		Proposta richiesta = new Proposta(foglie.get(scelta), TipoProposta.RICHIESTA, ore);
 
 		//OFFERTA
-		int incambio = InputDati.leggiIntero(MSG_SEL_OFFERTA) - 1;
+		int incambio = InputDati.leggiInteroConMINeMAX(MSG_SEL_OFFERTA, 0, foglie.size()- 1);
 		ArrayList<Double> fattori = logica.getFatConversione().prendiRiga(scelta); 
 		//prendendo tutti i fdc dalla tabella uscenti da id della prestazione richiesta
 	    int valore = (int) (fattori.get(incambio) * ore);
@@ -269,9 +270,10 @@ public class MenuFruitore extends Menu{
 	 */
 	private void stampaPrestazioni(ArrayList<CategoriaFoglia> foglie) {
 		StringBuffer sb = new StringBuffer();
+		int i = 0; //contatore per legenda
 		sb.append("Prestazioni a disposizione >>\n");		
 		for(CategoriaFoglia f : foglie) {
-			sb.append(f.getId());
+			sb.append(i++);
 			sb.append(": ");
 			sb.append(f.getNome());
 			sb.append("\n");
