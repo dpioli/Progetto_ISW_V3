@@ -56,6 +56,7 @@ public class MenuPrincipale{
 	 */
 	private static final int CASE_NAVIGA = 1;
 	private static final int CASE_RICHIEDI_PRESTAZIONI = 2;
+	private static final int CASE_P_AUT = 3;
 
 	/**
 	 * Costruttore della pagina iniziale del programma
@@ -189,12 +190,12 @@ public class MenuPrincipale{
 			case CASE_RICHIEDI_PRESTAZIONI:
 				menuFruit.richiediPrestazioni();
 				break;
-			case CASE_P_AUTENTICAZIONE:
+			case CASE_P_AUT:
 				break;
 			default:
 				System.exit(CASE_USCITA);
 			}
-		} while (scelta != CASE_P_AUTENTICAZIONE);
+		} while (scelta != CASE_P_AUT);
 		
 	}
 
