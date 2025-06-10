@@ -26,7 +26,7 @@ public class PropostaScambio {
 	public PropostaScambio(Proposta richiesta, Proposta offerta) {
 		this.richiesta = richiesta;
 		this.offerta = offerta;
-		this.stato = StatoProposta.IN_ATTESA;
+		this.stato = StatoProposta.APERTA;
 	}
 
 	public StatoProposta getStato() {
