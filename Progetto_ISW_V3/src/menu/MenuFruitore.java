@@ -53,6 +53,7 @@ public class MenuFruitore extends Menu{
 	private static final String MSG_Y_N = "\nVuoi confermare ";
 	private static final String MSG_CHECK_COMPRENSORIO = "\nNon ci sono Gerarchie appartenenti al tuo comprensorio geografico.\n";
 	private static final String MSG_ANNULLATO_SCAMBIO = "Hai annullato la proposta di scambio...";
+	private static final String MSG_PRESTAZIONI = "Prestazioni a disposizione >>\n";
 	
 	private static String[] vociFruit = {NAVIGA, RICHIEDI_PRESTAZIONI, MSG_P_PRECEDENTE};
 	
@@ -271,7 +272,7 @@ public class MenuFruitore extends Menu{
 	private void stampaPrestazioni(ArrayList<CategoriaFoglia> foglie) {
 		StringBuffer sb = new StringBuffer();
 		int i = 0; //contatore per legenda
-		sb.append("Prestazioni a disposizione >>\n");		
+		sb.append(MSG_PRESTAZIONI);		
 		for(CategoriaFoglia f : foglie) {
 			sb.append(i++);
 			sb.append(": ");

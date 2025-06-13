@@ -31,14 +31,9 @@ public class GestorePersistenza {
 	private static final String FILE_FRUITORI = "../Progetto_ISW_V3/src/dati/fruitori.json";
 	private static final String FILE_PROPOSTE = "../Progetto_ISW_V3/src/dati/proposteAperte.json";
 	
-	
-	/* PER la JAR
-	private static final String FILE_CONFIGURATORI = "dati/configuratori.json";
-	private static final String FILE_GERARCHIE = "dati/gerarchie.json";
-	private static final String FILE_COMPRENSORI = "dati/comprensori.json";
-	private static final String FILE_FATT_CONVERSIONE = "dati/fattConversione.json";
-	private static final String FILE_CATEGORIEFOGLIA = "dati/categorieFoglia.json";
-	*/
+	private static final String MSG_ERRORE_SALVATAGGIO = "Errore durante il salvataggio: ";
+	private static final String MSG_FILE_NON_TROVATO = "File non trovato: ";
+	private static final String MSG_ERRORE_CARICAMENTO_FILE = "Errore durante il caricamento: ";
 	
 	private static Gson gson;
 	
@@ -60,7 +55,7 @@ public class GestorePersistenza {
 			gson.toJson(oggetto, wr);
 			wr.close();
 		} catch (IOException e) {
-			System.err.println("Errore durante il salvataggio: " + e.getMessage());
+			System.err.println(MSG_ERRORE_SALVATAGGIO + e.getMessage());
 		}
 	}
 	
@@ -75,13 +70,13 @@ public class GestorePersistenza {
 	    T oggetto = null;
 	    File file = new File(fpath);
 	    if (!file.exists()) {
-	    	System.err.println("File non trovato: " + fpath);
+	    	System.err.println(MSG_FILE_NON_TROVATO + fpath);
 	    	return null;
 	    }
 	    try (FileReader rd = new FileReader(fpath)){
 	        oggetto = gson.fromJson(rd, typeOfT);
 	    } catch (IOException e) {
-	        System.err.println("Errore durante il caricamento: " + e.getMessage());
+	        System.err.println(MSG_ERRORE_CARICAMENTO_FILE + e.getMessage());
 	    }
 	    return oggetto != null ? oggetto : null; // per collezioni non creiamo nuovi oggetti vuoti
 	}
@@ -221,7 +216,6 @@ public class GestorePersistenza {
 		Type listType = new TypeToken<FatConversione>() {}.getType();
 		FatConversione fatConversione = carica(listType, FILE_FATT_CONVERSIONE);
 		if(fatConversione == null) {
-			//System.out.println("Non è stato trovato nessun dato trovato per i fattori di conversione.");
 			return new FatConversione();
 		}
 		return fatConversione;

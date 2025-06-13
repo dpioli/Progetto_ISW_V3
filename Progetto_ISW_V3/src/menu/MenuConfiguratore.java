@@ -69,6 +69,7 @@ public class MenuConfiguratore extends Menu {
 	private static final String MSG_CATEGORIA_FOGLIA = "Stai creando una categoria foglia: ";
 	private static final String MSG_NOME_CATEGORIA = "Inserisci il nome della categoria >";
 	private static final String MSG_NOME_CATEGORIA_NON_VALIDO = "E' già presente una categoria con questo nome.";
+	private static final String MSG_NESSUN_COMPRENSORIO = "Non è presente nessun comprensorio all'interno del sistema, creane uno prima di creare una gerarchia.";
 
 	/**
 	 * VISUALIZZA COMPRENSORI
@@ -250,7 +251,7 @@ public class MenuConfiguratore extends Menu {
 		
 		Comprensorio comp = null;
 		if(logica.getComprensori().isEmpty()) {
-			System.out.println("Non è presente nessun comprensorio all'interno del sistema, creane uno prima di creare una gerarchia.");
+			System.out.println(MSG_NESSUN_COMPRENSORIO);
 			return;
 		} else {
 			comp = selezionaComprensorio(logica.getComprensori());
