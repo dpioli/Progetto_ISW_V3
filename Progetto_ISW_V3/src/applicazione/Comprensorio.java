@@ -43,7 +43,7 @@ public class Comprensorio {
 	 * @param cerca
 	 * @return
 	 */
-	public boolean ePresete(String cerca) {
+	public boolean ePresente(String cerca) {
 		return nome.equalsIgnoreCase(cerca);
 	}
 	

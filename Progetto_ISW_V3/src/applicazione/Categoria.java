@@ -99,7 +99,7 @@ public class Categoria {
 	 * @param nomeCat
 	 * @return true o false
 	 */
-	public boolean ePresenteCatgoria(String nomeCat) {
+	public boolean ePresenteCategoria(String nomeCat) {
 		for(Categoria c: sottoCateg) {
 			if(c.eUguale(nomeCat))
 				return true;
