@@ -29,7 +29,7 @@ public class GestorePersistenza {
 	private static final String FILE_FATT_CONVERSIONE = "../Progetto_ISW_V3/src/dati/fattConversione.json";
 	private static final String FILE_CATEGORIEFOGLIA = "../Progetto_ISW_V3/src/dati/categorieFoglia.json";
 	private static final String FILE_FRUITORI = "../Progetto_ISW_V3/src/dati/fruitori.json";
-	private static final String FILE_PROPOSTE = "../Progetto_ISW_V3/src/dati/proposteAperte.json";
+	private static final String FILE_PROPOSTE = "../Progetto_ISW_V3/src/dati/proposte.json";
 	
 	private static final String MSG_ERRORE_SALVATAGGIO = "Errore durante il salvataggio: ";
 	private static final String MSG_FILE_NON_TROVATO = "File non trovato: ";
