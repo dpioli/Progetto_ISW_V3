@@ -54,6 +54,7 @@ public class MenuFruitore extends Menu{
 	private static final String MSG_CHECK_COMPRENSORIO = "\nNon ci sono Gerarchie appartenenti al tuo comprensorio geografico.\n";
 	private static final String MSG_ANNULLATO_SCAMBIO = "Hai annullato la proposta di scambio...";
 	private static final String MSG_PRESTAZIONI = "Prestazioni a disposizione >>\n";
+	private static final String MSG_PRESTAZIONE_NON_VALIDA = "Non puoi offrire la stessa presatzione che richiedi!";
 	
 	private static String[] vociFruit = {NAVIGA, RICHIEDI_PRESTAZIONI, MSG_P_PRECEDENTE};
 	
@@ -191,11 +192,20 @@ public class MenuFruitore extends Menu{
 		Proposta richiesta = new Proposta(foglie.get(scelta), TipoProposta.RICHIESTA, ore);
 
 		//OFFERTA
-		int incambio = InputDati.leggiInteroConMINeMAX(MSG_SEL_OFFERTA, 0, foglie.size()- 1);
-		ArrayList<Double> fattori = logica.getFatConversione().prendiRiga(scelta); 
+		int incambio = 0;
+		do {
+			incambio = InputDati.leggiInteroConMINeMAX(MSG_SEL_OFFERTA, 0, foglie.size()- 1);
+			if(incambio == scelta) {
+				System.out.println(MSG_PRESTAZIONE_NON_VALIDA);
+			}
+		} while (incambio == scelta);
+		
+		ArrayList<Double> fattori = logica.getFatConversione().prendiRiga(scelta + 1); 
 		//prendendo tutti i fdc dalla tabella uscenti da id della prestazione richiesta
-	    int valore = (int) (fattori.get(incambio) * ore);
-		Proposta offerta = new Proposta(foglie.get(incambio), TipoProposta.OFFERTA, valore);
+	    double valore = (fattori.get(incambio + 1) * ore);
+	    
+	    double arrotondato = arrotondaCustom(valore);
+		Proposta offerta = new Proposta(foglie.get(incambio), TipoProposta.OFFERTA, arrotondato);
 		
 		//SCAMBIO
 		PropostaScambio scambio = new PropostaScambio(richiesta, offerta);
@@ -208,6 +218,23 @@ public class MenuFruitore extends Menu{
 			System.out.println(MSG_ANNULLATO_SCAMBIO +  MSG_MENU_PRINCIPALE );
 			return;
 		}
+	}
+	/**
+	 * Metodo per arrotondare le ore quando viene generata una proposta
+	 * @param valore
+	 * @return valore arrotondato
+	 */
+	public static double arrotondaCustom(double valore) {
+	    int intero = (int) Math.floor(valore);
+	    double decimale = valore - intero;
+
+	    if (decimale <= 0.4) {
+	        return intero; // arrotonda per difetto
+	    } else if ( decimale < 0.6) {
+	        return intero + 0.5; // mantiene il .5
+	    } else {
+	        return intero + 1; // arrotonda per eccesso
+	    }
 	}
 	
 	/**

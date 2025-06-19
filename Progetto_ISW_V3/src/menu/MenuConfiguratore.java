@@ -70,7 +70,12 @@ public class MenuConfiguratore extends Menu {
 	private static final String MSG_NOME_CATEGORIA = "Inserisci il nome della categoria >";
 	private static final String MSG_NOME_CATEGORIA_NON_VALIDO = "E' già presente una categoria con questo nome.";
 	private static final String MSG_NESSUN_COMPRENSORIO = "Non è presente nessun comprensorio all'interno del sistema, creane uno prima di creare una gerarchia.";
-
+	
+	/**
+	 * VISUALIZZA FDC
+	 */
+	private static final String LEGENDA_FOGLIE = "----- LEGENDA -----\n";
+	
 	/**
 	 * VISUALIZZA COMPRENSORI
 	 */
@@ -156,7 +161,7 @@ public class MenuConfiguratore extends Menu {
 	public void visualizzaLegenda() {
 		ArrayList<CategoriaFoglia> categorieFoglia = logica.getCategorieFoglia();
 		StringBuffer sb = new StringBuffer();
-		sb.append("----- LEGENDA -----\n");
+		sb.append(LEGENDA_FOGLIE);
 		for(CategoriaFoglia f : categorieFoglia) {
 			sb.append(String.format("F%d : %s\n", f.getId(), f.getNome()));
 		}
@@ -175,6 +180,8 @@ public class MenuConfiguratore extends Menu {
 		GestorePersistenza.salvaConfiguratori(logica.getConfiguratori());
 		salvaGerarchieEFoglie();
 		GestorePersistenza.salvaComprensori(logica.getComprensori());
+		GestorePersistenza.salvaFruitori(logica.getFruitori());
+		GestorePersistenza.salvaScambi(logica.getScambi());
 		System.out.println(MSG_SALVATAGGIO);
 	}
 	
