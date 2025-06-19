@@ -29,7 +29,7 @@ public class GestorePersistenza {
 	private static final String FILE_FATT_CONVERSIONE = "dati/fattConversione.json";
 	private static final String FILE_CATEGORIEFOGLIA = "dati/categorieFoglia.json";
 	private static final String FILE_FRUITORI = "dati/fruitori.json";
-	private static final String FILE_PROPOSTE = "dati/proposteAperte.json";
+	private static final String FILE_PROPOSTE = "dati/proposte.json";
 	
 	private static final String MSG_ERRORE_SALVATAGGIO = "Errore durante il salvataggio: ";
 	private static final String MSG_FILE_NON_TROVATO = "File non trovato: ";
